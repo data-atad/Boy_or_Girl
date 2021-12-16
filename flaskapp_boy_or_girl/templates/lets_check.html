@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% set active_page = "lets_check" %}
+
+{% block content %}
+
+
+	<div class='row'>
+		<div class='col-lg-6 mb-4'>
+			<div class="card text-center">
+			  <h3 class="card-header p-3 text-center">
+			    Let's check
+			  </h3>
+			  <div class="card-body">
+				<form method="POST" action="" enctype="multipart/form-data">
+					{{ form.hidden_tag() }}
+
+					<fieldset>
+
+						<div class="form-group mt-4">
+				            {{ form.mother_birthday.label(class="form-control-label") }}
+				            {% if form.mother_birthday.errors %}
+				                {{ form.mother_birthday(class="form-control is-invalid") }}
+				                <div class="invalid-feedback">
+				                    {% for error in form.mother_birthday.errors %}
+				                        <span>{{ error }}</span>
+				                    {% endfor %}
+				                </div>
+				            {% else %}
+				                {{ form.mother_birthday(class="form-control") }}
+				            {% endif %}
+			        	</div>
+
+						<div class="form-group mt-4">
+				            {{ form.my_birthday.label(class="form-control-label") }}
+				            {% if form.my_birthday.errors %}
+				                {{ form.my_birthday(class="form-control is-invalid") }}
+				                <div class="invalid-feedback">
+				                    {% for error in form.my_birthday.errors %}
+				                        <span>{{ error }}</span>
+				                    {% endfor %}
+				                </div>
+				            {% else %}
+				                {{ form.my_birthday(class="form-control") }}
+				            {% endif %}
+			        	</div>
+
+						<div class="form-group mt-4">
+				            {{ form.days_in_womb.label(class="form-control-label") }}
+				            {% if form.days_in_womb.errors %}
+				                {{ form.days_in_womb(class="form-control is-invalid") }}
+				                <div class="invalid-feedback">
+				                    {% for error in form.days_in_womb.errors %}
+				                        <span>{{ error }}</span>
+				                    {% endfor %}
+				                </div>
+				            {% else %}
+				                {{ form.days_in_womb(class="form-control") }}
+				            {% endif %}
+			        	</div>	        	
+
+		        	</fieldset>
+
+		        	<div class="form-group mt-4">
+		            	{{ form.submit(class="btn btn-lg btn-outline-info") }}
+		        	</div>
+
+				</form>
+			  </div>
+
+			</div>
+		</div>
+
+
+
+
+		<div class='col-lg-6'>
+			<div class="card {{bg_color}} {{text_color}}">
+			  <h3 class="card-header p-3 text-center">
+	          	{% if result%}
+	        		It's a {{result}}
+	    		{% elif error_msg %}
+	    			Error
+				{% elif welcome_msg %}
+					Welcome
+	    		{% endif %}
+			  </h3>
+			  <div class="card-body">
+			  	{% if result%}
+			    	<h4 class="card-title">Details:</h4>
+			    {% else %}
+			    	<h4 class="card-title">Message:</h4>
+			    {% endif %}
+			    <p class="card-text">
+			    	{% if result%}
+				    	<ul class="list-group list-group-flush bg-primary">
+						  <li class="list-group-item {{bg_color}} {{text_color}} border-white">Mother's age when the child was concieved: {{details['mother_age_whenconcieved']}}</li>
+						  <li class="list-group-item {{bg_color}} {{text_color}} border-white">Concieve date: {{details['concieve_date']}}</li>
+						  <li class="list-group-item {{bg_color}} {{text_color}} border-white">Concieve month: {{details['concieve_month']}}</li>
+						  <li class="list-group-item {{bg_color}} {{text_color}} border-white">The child's age now (in years): {{details['my_age']}}</li>
+						</ul>
+					{% elif error_msg %}
+						<p class="card-text"> {{error_msg}} </p>
+					{% elif welcome_msg %}
+						<p class="card-text"> {{welcome_msg}} </p>
+			    	{% endif %}
+			    </p>
+			  </div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock content %}
